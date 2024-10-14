@@ -36,20 +36,34 @@ go build -v \
         -tags "with_gvisor,with_dhcp,with_wireguard,with_reality_server,with_clash_api,with_quic,with_utls,with_ech,with_grpc,with_v2ray_api" \
         ./cmd/sing-box
 
+./sing-box completion bash >%{name}.bash
+./sing-box completion fish >%{name}.fish
+./sing-box completion zsh >%{name}.zsh
+
 
 %install
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_unitdir}
+mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
+mkdir -p %{buildroot}%{_datadir}/fish/vendor_completions.d
+mkdir -p %{buildroot}%{_datadir}/zsh/vendor-completions
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 
 cp %{SOURCE2} %{buildroot}/%{_unitdir}/
 mv %{name} %{buildroot}/%{_bindir}/
 
+mv %{name}.bash %{buildroot}%{_datadir}/bash-completion/completions/
+mv %{name}.fish %{buildroot}%{_datadir}/fish/vendor_completions.d/
+mv %{name}.zsh %{buildroot}%{_datadir}/zsh/vendor-completions/_%{name}
+
 
 %files
 %{_bindir}/%{name}
 %{_unitdir}/%{name}@.service
+%{_datadir}/bash-completion/completions/%{name}.bash
+%{_datadir}/fish/vendor_completions.d/%{name}.fish
+%{_datadir}/zsh/vendor-completions/_%{name}
 %attr(0750,root,%{name}) %dir %{_sysconfdir}/%{name}
 %attr(0750,%{name},%{name}) %dir %{_sharedstatedir}/%{name}
 
