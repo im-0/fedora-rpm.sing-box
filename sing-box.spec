@@ -32,7 +32,7 @@ The universal proxy platform.
 %build
 go build -v \
         -trimpath \
-        -ldflags "-X 'github.com/sagernet/sing-box/constant.Version=%{version}-%{release}%{?dist}' -s -w -buildid=0x$(head -c20 /dev/urandom | od -An -tx1 | tr -d ' \n')" \
+        -ldflags "-X 'github.com/sagernet/sing-box/constant.Version=%{version}-%{release}.%{_build_arch}' -s -w -buildid=0x$(head -c20 /dev/urandom | od -An -tx1 | tr -d ' \n')" \
         -tags "with_gvisor,with_dhcp,with_wireguard,with_reality_server,with_clash_api,with_quic,with_utls,with_ech,with_grpc,with_v2ray_api" \
         ./cmd/sing-box
 
