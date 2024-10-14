@@ -1,18 +1,20 @@
 # debuginfo seems to only work with gccgo.
 %global debug_package %{nil}
 
+%global tarball_version %%( echo %{version} | sed -E "s,~([^0-9]+)([0-9]+)$,-\\1.\\2," )
+
 Name:       sing-box
-Version:    1.9.7
+Version:    1.10.0~rc1
 Release:    1%{?dist}
 Summary:    The universal proxy platform 
 
 License:    GPL-3.0-or-later
 URL:        https://github.com/SagerNet/sing-box
-Source0:    https://github.com/SagerNet/sing-box/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:    https://github.com/SagerNet/sing-box/archive/v%{tarball_version}/%{name}-%{tarball_version}.tar.gz
 
 # $ GOPROXY=https://proxy.golang.org go mod vendor -v
-# Contains %{name}-%{version}/vendor/*.
-Source1:    %{name}-%{version}.go-mod-vendor.tar.xz
+# Contains %{name}-%{tarball_version}/vendor/*.
+Source1:    %{name}-%{tarball_version}.go-mod-vendor.tar.xz
 
 Source2:    sing-box@.service
 
@@ -25,8 +27,8 @@ The universal proxy platform.
 
 
 %prep
-%setup -q -D -T -b0 -n %{name}-%{version}
-%setup -q -D -T -b1 -n %{name}-%{version}
+%setup -q -D -T -b0 -n %{name}-%{tarball_version}
+%setup -q -D -T -b1 -n %{name}-%{tarball_version}
 
 
 %build
@@ -89,5 +91,8 @@ exit 0
 
 
 %changelog
+* Mon Oct 14 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.0~rc1-1
+- Update to 1.10.0-rc.1
+
 * Mon Oct 14 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.9.7-1
 - Initial packaging
