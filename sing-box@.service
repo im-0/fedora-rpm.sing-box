@@ -19,12 +19,14 @@ DeviceAllow=/dev/random r
 DeviceAllow=/dev/urandom r
 ProtectHome=yes
 ProtectSystem=strict
+ReadWritePaths=/var/lib/sing-box
 MemoryDenyWriteExecute=true
 
 Type=simple
 
 LogRateLimitIntervalSec=0
 
+ExecStartPre=/usr/bin/mkdir --parents /var/lib/sing-box/%i
 ExecStart=/usr/bin/sing-box run --config-directory /etc/sing-box/%i --directory /var/lib/sing-box/%i --disable-color
 
 AmbientCapabilities=CAP_NET_BIND_SERVICE CAP_NET_ADMIN

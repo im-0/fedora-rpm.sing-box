@@ -5,7 +5,7 @@
 
 Name:       sing-box
 Version:    1.10.0~rc1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The universal proxy platform 
 
 License:    GPL-3.0-or-later
@@ -91,6 +91,9 @@ exit 0
 
 
 %changelog
+* Tue Oct 15 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.0~rc1-2
+- Create /var/lib/sing-box/$CONN_NAME before starting the service
+
 * Mon Oct 14 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.0~rc1-1
 - Update to 1.10.0-rc.1
 
