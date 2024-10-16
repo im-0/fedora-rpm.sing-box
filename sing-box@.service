@@ -15,6 +15,7 @@ Group=sing-box
 
 PrivateTmp=yes
 DeviceAllow=/dev/null rw
+DeviceAllow=/dev/net/tun rw
 DeviceAllow=/dev/random r
 DeviceAllow=/dev/urandom r
 ProtectHome=yes
