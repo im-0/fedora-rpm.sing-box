@@ -4,8 +4,8 @@
 %global tarball_version %%( echo %{version} | sed -E "s,~([^0-9]+)([0-9]+)$,-\\1.\\2," )
 
 Name:       sing-box
-Version:    1.10.0~rc1
-Release:    3%{?dist}
+Version:    1.10.0
+Release:    1%{?dist}
 Summary:    The universal proxy platform 
 
 License:    GPL-3.0-or-later
@@ -91,6 +91,9 @@ exit 0
 
 
 %changelog
+* Wed Oct 16 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.0-1
+- Update to 1.10.0
+
 * Wed Oct 16 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.0~rc1-3
 - Allow read-write access to /dev/net/tun
 
