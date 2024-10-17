@@ -1,0 +1,34 @@
+From 3d4514389efaa5ba16a215ae2c49b83b7eff746e Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Thu, 17 Oct 2024 21:50:53 +0200
+Subject: [PATCH] Allow FakeIP while resolving names in inbound
+
+---
+ route/router_dns.go | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/route/router_dns.go b/route/router_dns.go
+index ead8c2894301..8ede6d96d7e2 100644
+--- a/route/router_dns.go
++++ b/route/router_dns.go
+@@ -8,7 +8,7 @@ import (
+ 	"time"
+ 
+ 	"github.com/sagernet/sing-box/adapter"
+-	"github.com/sagernet/sing-dns"
++	dns "github.com/sagernet/sing-dns"
+ 	"github.com/sagernet/sing/common/cache"
+ 	E "github.com/sagernet/sing/common/exceptions"
+ 	F "github.com/sagernet/sing/common/format"
+@@ -210,7 +210,7 @@ func (r *Router) Lookup(ctx context.Context, domain string, strategy dns.DomainS
+ 			dnsCtx       context.Context
+ 			addressLimit bool
+ 		)
+-		dnsCtx, transport, transportStrategy, rule, ruleIndex = r.matchDNS(ctx, false, ruleIndex, true)
++		dnsCtx, transport, transportStrategy, rule, ruleIndex = r.matchDNS(ctx, true, ruleIndex, true)
+ 		dnsCtx = adapter.OverrideContext(dnsCtx)
+ 		if strategy == dns.DomainStrategyAsIS {
+ 			strategy = transportStrategy
+-- 
+2.47.0
+

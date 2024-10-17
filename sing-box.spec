@@ -4,7 +4,7 @@
 %global tarball_version %%( echo %{version} | sed -E "s,~([^0-9]+)([0-9]+)$,-\\1.\\2," )
 
 Name:       sing-box
-Version:    1.10.0
+Version:    1.10.1
 Release:    1%{?dist}
 Summary:    The universal proxy platform 
 
@@ -18,6 +18,8 @@ Source1:    %{name}-%{tarball_version}.go-mod-vendor.tar.xz
 
 Source2:    sing-box@.service
 
+Patch0:     0001-Allow-FakeIP-while-resolving-names-in-inbound.patch
+
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  golang >= 1.21.0
 
@@ -29,6 +31,8 @@ The universal proxy platform.
 %prep
 %setup -q -D -T -b0 -n %{name}-%{tarball_version}
 %setup -q -D -T -b1 -n %{name}-%{tarball_version}
+
+%patch -P0 -p1
 
 
 %build
@@ -91,6 +95,10 @@ exit 0
 
 
 %changelog
+* Thu Oct 17 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.1-1
+- Update to 1.10.1
+- Allow FakeIP while resolving names in inbound
+
 * Wed Oct 16 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.0-1
 - Update to 1.10.0
 
