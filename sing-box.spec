@@ -83,7 +83,7 @@ mv %{name}.zsh %{buildroot}%{_datadir}/zsh/vendor-completions/_%{name}
 %pre
 getent group %{name} >/dev/null || groupadd -r %{name}
 getent passwd %{name} >/dev/null || \
-        useradd -r -s /sbin/nologin -d %{_sysconfdir}/%{name} -M \
+        useradd -r -s /sbin/nologin -d %{_sharedstatedir}/%{name} -M \
         -c 'sing-box, The universal proxy platform' -g %{name} %{name}
 exit 0
 
