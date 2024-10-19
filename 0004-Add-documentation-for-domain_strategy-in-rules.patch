@@ -1,0 +1,108 @@
+From 9a67e53f222560222ea0e0048a1637ac262bacef Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Sat, 19 Oct 2024 00:31:24 +0200
+Subject: [PATCH 4/4] Add documentation for `domain_strategy` in rules
+
+---
+ docs/configuration/route/rule.md             | 22 +++++++++++++++++
+ docs/configuration/rule-set/headless-rule.md | 26 ++++++++++++++++++++
+ 2 files changed, 48 insertions(+)
+
+diff --git a/docs/configuration/route/rule.md b/docs/configuration/route/rule.md
+index b5d17f215b16..f2e34db0220d 100644
+--- a/docs/configuration/route/rule.md
++++ b/docs/configuration/route/rule.md
+@@ -2,6 +2,10 @@
+ icon: material/alert-decagram
+ ---
+ 
++!!! quote "Changes in sing-box X.Y.TODO"
++
++    :material-plus: [domain_strategy](#domain_strategy)
++
+ !!! quote "Changes in sing-box 1.10.0"
+ 
+     :material-plus: [client](#client)  
+@@ -26,6 +30,7 @@ icon: material/alert-decagram
+   "route": {
+     "rules": [
+       {
++        "domain_strategy": "prefer_ipv6",
+         "inbound": [
+           "mixed-in"
+         ],
+@@ -161,6 +166,23 @@ icon: material/alert-decagram
+ 
+     Additionally, included rule-sets can be considered merged rather than as a single rule sub-item.
+ 
++#### domain_strategy
++
++One of `prefer_ipv4` `prefer_ipv6` `ipv4_only` `ipv6_only`.
++
++If set, the requested domain name will be resolved to IP before matching
++with current rule.
++
++Rule processing stops and default outbound is used when name resolution
++fails.
++
++It is recommended to set `domain_strategy` in every rule that requires
++IP addresses to match. Name resolution is performed on each
++such rule unless value of `domain_strategy` is equal to previous one.
++
++Usage within DNS rule context is not supported and may not work as
++expected.
++
+ #### inbound
+ 
+ Tags of [Inbound](/configuration/inbound/).
+diff --git a/docs/configuration/rule-set/headless-rule.md b/docs/configuration/rule-set/headless-rule.md
+index 891b127840ce..84ff634c9d7f 100644
+--- a/docs/configuration/rule-set/headless-rule.md
++++ b/docs/configuration/rule-set/headless-rule.md
+@@ -1,3 +1,11 @@
++---
++icon: material/alert-decagram
++---
++
++!!! quote "Changes in sing-box X.Y.TODO"
++
++    :material-plus: [domain_strategy](#domain_strategy)
++
+ ### Structure
+ 
+ !!! question "Since sing-box 1.8.0"
+@@ -6,6 +14,7 @@
+ {
+   "rules": [
+     {
++      "domain_strategy": "prefer_ipv6",
+       "query_type": [
+         "A",
+         "HTTPS",
+@@ -95,6 +104,23 @@
+     (`source_port` || `source_port_range`) &&  
+     `other fields`
+ 
++#### domain_strategy
++
++One of `prefer_ipv4` `prefer_ipv6` `ipv4_only` `ipv6_only`.
++
++If set, the requested domain name will be resolved to IP before matching
++with current rule.
++
++Rule processing stops and default outbound is used when name resolution
++fails.
++
++It is recommended to set `domain_strategy` in every rule that requires
++IP addresses to match. Name resolution is performed on each
++such rule unless value of `domain_strategy` is equal to previous one.
++
++Usage within DNS rule context is not supported and may not work as
++expected.
++
+ #### query_type
+ 
+ DNS query type. Values can be integers or type name strings.
+-- 
+2.47.0
+

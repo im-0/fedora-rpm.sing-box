@@ -5,7 +5,7 @@
 
 Name:       sing-box
 Version:    1.10.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The universal proxy platform 
 
 License:    GPL-3.0-or-later
@@ -18,7 +18,10 @@ Source1:    %{name}-%{tarball_version}.go-mod-vendor.tar.xz
 
 Source2:    sing-box@.service
 
-Patch0:     0001-Allow-FakeIP-while-resolving-names-in-inbound.patch
+Patch0:     0001-Propagate-context-for-rule-matching.patch
+Patch1:     0002-Pass-log.ContextLogger-when-creating-rules.patch
+Patch2:     0003-Support-resolving-domain-addresses-while-matching-ru.patch
+Patch3:     0004-Add-documentation-for-domain_strategy-in-rules.patch
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  golang >= 1.21.0
@@ -33,6 +36,9 @@ The universal proxy platform.
 %setup -q -D -T -b1 -n %{name}-%{tarball_version}
 
 %patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 
 
 %build
@@ -95,6 +101,9 @@ exit 0
 
 
 %changelog
+* Sat Oct 19 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.1-2
+- Better patches to support name resolution within rules
+
 * Thu Oct 17 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.1-1
 - Update to 1.10.1
 - Allow FakeIP while resolving names in inbound
