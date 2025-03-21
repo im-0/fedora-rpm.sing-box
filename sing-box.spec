@@ -4,9 +4,9 @@
 %global tarball_version %%( echo %{version} | sed -E "s,~([^0-9]+)([0-9]+)$,-\\1.\\2," )
 
 Name:       sing-box
-Version:    1.10.1
-Release:    2%{?dist}
-Summary:    The universal proxy platform 
+Version:    1.11.5
+Release:    1%{?dist}
+Summary:    The universal proxy platform
 
 License:    GPL-3.0-or-later
 URL:        https://github.com/SagerNet/sing-box
@@ -17,11 +17,6 @@ Source0:    https://github.com/SagerNet/sing-box/archive/v%{tarball_version}/%{n
 Source1:    %{name}-%{tarball_version}.go-mod-vendor.tar.xz
 
 Source2:    sing-box@.service
-
-Patch0:     0001-Propagate-context-for-rule-matching.patch
-Patch1:     0002-Pass-log.ContextLogger-when-creating-rules.patch
-Patch2:     0003-Support-resolving-domain-addresses-while-matching-ru.patch
-Patch3:     0004-Add-documentation-for-domain_strategy-in-rules.patch
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  golang >= 1.21.0
@@ -35,17 +30,12 @@ The universal proxy platform.
 %setup -q -D -T -b0 -n %{name}-%{tarball_version}
 %setup -q -D -T -b1 -n %{name}-%{tarball_version}
 
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-
 
 %build
 go build -v \
         -trimpath \
         -ldflags "-X 'github.com/sagernet/sing-box/constant.Version=%{version}-%{release}.%{_build_arch}' -s -w -buildid=0x$(head -c20 /dev/urandom | od -An -tx1 | tr -d ' \n')" \
-        -tags "with_gvisor,with_dhcp,with_wireguard,with_reality_server,with_clash_api,with_quic,with_utls,with_ech,with_grpc,with_v2ray_api" \
+        -tags "with_gvisor,with_dhcp,with_wireguard,with_reality_server,with_clash_api,with_quic,with_utls,with_ech,with_grpc,with_v2ray_api,with_acme" \
         ./cmd/sing-box
 
 ./sing-box completion bash >%{name}.bash
@@ -101,6 +91,9 @@ exit 0
 
 
 %changelog
+* Sat Oct 19 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.11.5-1
+- Update to 1.11.5
+
 * Sat Oct 19 2024 Ivan Mironov <mironov.ivan@gmail.com> - 1.10.1-2
 - Better patches to support name resolution within rules
 
