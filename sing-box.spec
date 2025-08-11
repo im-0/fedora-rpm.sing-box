@@ -4,7 +4,7 @@
 %global tarball_version %%( echo %{version} | sed -E "s,~([^0-9]+)([0-9]+)$,-\\1.\\2," )
 
 Name:       sing-box
-Version:    1.11.11
+Version:    1.12.1
 Release:    1%{?dist}
 Summary:    The universal proxy platform
 
@@ -13,13 +13,13 @@ URL:        https://github.com/SagerNet/sing-box
 Source0:    https://github.com/SagerNet/sing-box/archive/v%{tarball_version}/%{name}-%{tarball_version}.tar.gz
 
 # $ GOPROXY=https://proxy.golang.org go mod vendor -v
-# Contains %{name}-%{tarball_version}/vendor/*.
+# Contains $name-$tarball_version/vendor/*.
 Source1:    %{name}-%{tarball_version}.go-mod-vendor.tar.xz
 
 Source2:    sing-box@.service
 
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  golang >= 1.21.0
+BuildRequires:  golang >= 1.23.1
 
 
 %description
@@ -35,7 +35,7 @@ The universal proxy platform.
 go build -v \
         -trimpath \
         -ldflags "-X 'github.com/sagernet/sing-box/constant.Version=%{version}-%{release}.%{_build_arch}' -s -w -buildid=0x$(head -c20 /dev/urandom | od -An -tx1 | tr -d ' \n')" \
-        -tags "with_gvisor,with_dhcp,with_wireguard,with_reality_server,with_clash_api,with_quic,with_utls,with_ech,with_grpc,with_v2ray_api,with_acme" \
+        -tags "with_gvisor,with_dhcp,with_wireguard,with_clash_api,with_quic,with_utls,with_grpc,with_v2ray_api,with_acme,with_tailscale" \
         ./cmd/sing-box
 
 ./sing-box completion bash >%{name}.bash
@@ -91,6 +91,9 @@ exit 0
 
 
 %changelog
+* Mon Aug 11 2025 Ivan Mironov <mironov.ivan@gmail.com> - 1.12.1-1
+- Update to 1.12.1
+
 * Tue May 20 2025 Ivan Mironov <mironov.ivan@gmail.com> - 1.11.11-1
 - Update to 1.11.11
 
