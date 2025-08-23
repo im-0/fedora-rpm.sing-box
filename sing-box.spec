@@ -4,7 +4,7 @@
 %global tarball_version %%( echo %{version} | sed -E "s,~([^0-9]+)([0-9]+)$,-\\1.\\2," )
 
 Name:       sing-box
-Version:    1.12.1
+Version:    1.12.3
 Release:    1%{?dist}
 Summary:    The universal proxy platform
 
@@ -91,6 +91,9 @@ exit 0
 
 
 %changelog
+* Sat Aug 23 2025 Ivan Mironov <mironov.ivan@gmail.com> - 1.12.3-1
+- Update to 1.12.3
+
 * Mon Aug 11 2025 Ivan Mironov <mironov.ivan@gmail.com> - 1.12.1-1
 - Update to 1.12.1
 
