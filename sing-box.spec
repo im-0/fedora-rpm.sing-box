@@ -5,7 +5,7 @@
 
 Name:       sing-box
 Version:    1.12.22
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The universal proxy platform
 
 License:    GPL-3.0-or-later
@@ -35,7 +35,7 @@ The universal proxy platform.
 go build -v \
         -trimpath \
         -ldflags "-X 'github.com/sagernet/sing-box/constant.Version=%{version}-%{release}.%{_build_arch}' -s -w -buildid=0x$(head -c20 /dev/urandom | od -An -tx1 | tr -d ' \n')" \
-        -tags "with_gvisor,with_dhcp,with_wireguard,with_clash_api,with_quic,with_utls,with_grpc,with_v2ray_api,with_acme,with_tailscale" \
+        -tags "with_gvisor,with_dhcp,with_wireguard,with_clash_api,with_quic,with_utls,with_grpc,with_v2ray_api,with_acme,with_tailscale,with_ccm,with_ocm,badlinkname,tfogo_checklinkname0" \
         ./cmd/sing-box
 
 ./sing-box completion bash >%{name}.bash
@@ -91,6 +91,9 @@ exit 0
 
 
 %changelog
+* Thu Feb 26 2026 Ivan Mironov <mironov.ivan@gmail.com> - 1.12.22-2
+- Add missing tags
+
 * Thu Feb 26 2026 Ivan Mironov <mironov.ivan@gmail.com> - 1.12.22-1
 - Update to 1.12.22
 
