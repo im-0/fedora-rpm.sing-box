@@ -5,7 +5,7 @@
 
 Name:       sing-box
 Version:    1.12.23
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The universal proxy platform
 
 License:    GPL-3.0-or-later
@@ -20,6 +20,9 @@ Source2:    sing-box@.service
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  golang >= 1.23.1
+
+Provides: user(%{name})
+Provides: group(%{name})
 
 
 %description
@@ -91,6 +94,9 @@ exit 0
 
 
 %changelog
+* Thu Mar 5 2026 Ivan Mironov <mironov.ivan@gmail.com> - 1.12.23-2
+- Fix packaging
+
 * Sat Feb 28 2026 Ivan Mironov <mironov.ivan@gmail.com> - 1.12.23-1
 - Update to 1.12.23
 
